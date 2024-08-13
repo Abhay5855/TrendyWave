@@ -5,6 +5,7 @@ def change
     t.string :email
     t.string :password_digest
     t.integer :role
+    t.timestamps
   end
 end
 
