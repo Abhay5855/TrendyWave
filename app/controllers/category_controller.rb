@@ -1,7 +1,6 @@
 class CategoryController < ApplicationController
 
 # GET /categories or /categories.json
-
 def index
 
 total_records = Category.count
@@ -38,7 +37,6 @@ def new
 end
 
 # POST /categories or /categories.json
-
 def create(category_params)
 @category = Category.new(category_params)
 respond_to do |format| 
@@ -55,36 +53,35 @@ end
 # PATCH/PUT /categories/1 or /categories/1.json
 
 
+#Delete All
+def delete_all
 
-# DELETE /categories/1 or /categories/1.json
-
-
-def delete
-
-@category = Category.find(params[:id])
-
+@category = Category.all
 
 respond_to do |format|
 
-if @category.destroy!
-format.html {notice: "Post successfully deleted"}
+if @category.delete_all!
+format.html {notice: "All Categories successfully deleted"}
 format.json {head :no_content}
-
-else
+end
 format.html {notice: "Unable to delete the post"}
 end
 
+# DELETE /categories/1 or /categories/1.json
+def delete
+@category = Category.find(params[:id])
+respond_to do |format|
+if @category.destroy!
+format.html {notice: "Category successfully deleted"}
+format.json {head :no_content}
+else
+format.html {notice: "Unable to delete the post"}
 end
-
 end
-
-
-
+end
 
 
 # Only allow a list of trusted parameters through.
-
-
 private
 
 def category_params 
