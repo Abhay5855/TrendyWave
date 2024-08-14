@@ -2,31 +2,15 @@ class CategoryController < ApplicationController
 
 # GET /categories or /categories.json
 def index
-
-total_records = Category.count
-processed_records = 0
-puts "Total categories: #{total_records}"
-
-Category.find_each(batch_size: 500) do |category|
-
-puts "Processing category: #{category.category_name}"
-
-processed_records += 1
-
-puts "Processed #{processed_records} out of #{total_records} categories" if processed_records % 100 == 0
-
-end
-
+ @category = Categorie.all
 end
 
 # GET /categories/1 or /categories/1.json
 
 
-
-
 # GET /categories/1/edit
-
-
+def edit 
+end
 
 
 def show
@@ -51,7 +35,16 @@ end
 
 
 # PATCH/PUT /categories/1 or /categories/1.json
-
+def update 
+@category = Category.update(params[:id])
+respond_to do |format|
+if @category.update!
+  format.json {render :show, status: :ok}
+else
+format.json {render :edit, notice: "Failed to edit the category"}
+end
+end
+end
 
 #Delete All
 def delete_all
